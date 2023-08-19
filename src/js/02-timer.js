@@ -11,8 +11,6 @@ const elements = {
     minutes: document.querySelector('span[data-minutes]'),
     seconds: document.querySelector('span[data-seconds]')    
 };
-const fp = flatpickr('input[type="text"]', options);  
-startBtn.disabled = true;
 
 const options = {
   enableTime: true,
@@ -26,6 +24,8 @@ const options = {
         startBtn.disabled = false;      
     }    
 };
+const fp = flatpickr('input[type="text"]', options);  
+startBtn.disabled = true;
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
