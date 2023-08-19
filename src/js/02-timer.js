@@ -2,9 +2,17 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 import Notiflix from 'notiflix';
 
-
 const input = document.querySelector('#datetime-picker');
 const startBtn = document.querySelector('button[data-start]');
+
+const elements = {
+    days: document.querySelector('span[data-days]'),
+    hours: document.querySelector('span[data-hours]'),
+    minutes: document.querySelector('span[data-minutes]'),
+    seconds: document.querySelector('span[data-seconds]')    
+};
+const fp = flatpickr('input[type="text"]', options);  
+startBtn.disabled = true;
 
 const options = {
   enableTime: true,
@@ -13,21 +21,10 @@ const options = {
   minuteIncrement: 1,
     onClose(selectedDates) {      
       if (selectedDates[0] <= options.defaultDate) {
-        //   return window.alert("Please choose a date in the future");
-          return Notiflix.Notify.failure('Please choose a date in the future');
-        }
+        return Notiflix.Notify.failure('Please choose a date in the future');
+      }
         startBtn.disabled = false;      
     }    
-};
-
-const fp = flatpickr('input[type="text"]', options);  
-startBtn.disabled = true;
-
-const elements = {
-    days: document.querySelector('span[data-days]'),
-    hours: document.querySelector('span[data-hours]'),
-    minutes: document.querySelector('span[data-minutes]'),
-    seconds: document.querySelector('span[data-seconds]')    
 };
 
 function convertMs(ms) {
@@ -52,25 +49,20 @@ function convertMs(ms) {
 startBtn.addEventListener('click', handlerClick);
 function handlerClick() {
     const timer = setInterval(() => {   
-    const remainingTime = new Date(input.value) - new Date();     
-    startBtn.disabled = true;
+      const remainingTime = new Date(input.value) - new Date();     
+      startBtn.disabled = true;
     
-    if (remainingTime >= 0) {
-        let featureTimeObject = convertMs(remainingTime);          
-
+      if (remainingTime >= 0) {
+        let featureTimeObject = convertMs(remainingTime);
         elements.days.textContent = addLeadingZero(featureTimeObject.days);
         elements.hours.textContent = addLeadingZero(featureTimeObject.hours);
         elements.minutes.textContent = addLeadingZero(featureTimeObject.minutes);
         elements.seconds.textContent = addLeadingZero(featureTimeObject.seconds);
-    }      
+      };      
       
     }, 1000);
 };
+
 function addLeadingZero(value) {
    return value.toString().padStart(2, '0');
 };
-
-
-
-
-

@@ -4,8 +4,8 @@ const body = document.body;
 
 startBtn.addEventListener('click', onClickStart);
 stopBtn.addEventListener('click', onClickStop);
-let interval = 0;
 stopBtn.disabled = true;
+let interval = 0;
 
 function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, 0)}`;

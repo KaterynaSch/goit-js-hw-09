@@ -41,5 +41,4 @@ function handlerSubmit(evt) {
         
     };
     form.reset();
-}
-
+};
